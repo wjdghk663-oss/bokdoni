@@ -1,4 +1,4 @@
-const firebaseConfig = {
+window.BOKDONI_FIREBASE = {
   apiKey: "AIzaSyBlWrWoq0HcAwQrf5TxSSU8S2_wkiIfR6A",
   authDomain: "bokdoni-d3e60.firebaseapp.com",
   projectId: "bokdoni-d3e60",
