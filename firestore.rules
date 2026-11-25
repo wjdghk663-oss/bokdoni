@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+ match /databases/{database}/documents {
+ function verified(){return request.auth != null && request.auth.token.email_verified == true;}
+ function access(){return get(/databases/$(database)/documents/settings/access).data;}
+ function owner(){return verified() && request.auth.uid == access().ownerUid;}
+ function reader(){return owner() || (verified() && request.auth.token.email.lower() in access().invitedEmails);}
+ match /settings/access {allow read: if reader(); allow write: if false;}
+ match /bokdoni/ledger {allow read: if reader(); allow write: if owner();}
+ }
+}
